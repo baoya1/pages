@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>文本对比器</title>
+    <script type="text/javascript">
+        
+        window.onload=function(){
+            document.getElementById('contrast').onclick=function(){
+                //清空结果区
+                document.getElementById('result1').innerHTML=""
+                document.getElementById('result2').innerHTML=""
+                var text1=document.getElementById('choice1').value
+                var text2=document.getElementById('choice2').value
+                var length=Math.max(text1.length,text2.length)
+                for(var i=0;i<length;i++){
+                    if(text2[i]!=text1[i]){
+                        console.log(i)
+                        //防止长度不同产生undefined---长度不同时有点问题
+                        var newText1=(i>text1.length-1)?"":'<font color="blue">' + text1[i] + '</font>'
+                        var newText2=(i>text2.length-1)?"":'<font color="red">' + text2[i] + '</font>'  
+                        document.getElementById('result1').innerHTML+=newText1
+                        document.getElementById('result2').innerHTML+=newText2
+                    }else{
+                        document.getElementById('result1').innerHTML+=text1[i]
+                        document.getElementById('result2').innerHTML+=text2[i]
+                    }
+                }
+            }
+        }
+
+        // 根据X:切出四个选项
+        // var oldTest=document.getElementById('choice').value
+        // var bIndex=oldTest.indexOf('B:')
+        // var cIndex=oldTest.indexOf('C:')
+        // var dIndex=oldTest.indexOf('D:')
+        // console.log(bIndex+" "+cIndex+" "+dIndex)
+        // //slice(start,end) substring(start,end) substr(start,length)
+        // var aText=oldTest.slice(0,bIndex)
+        // var bText=oldTest.slice(bIndex,cIndex)
+        // var cText=oldTest.slice(cIndex,dIndex)
+        // var dText=oldTest.slice(dIndex)
+    </script>
+</head>
+<body>
+    <textarea  id="choice1" cols="30" rows="5"></textarea><br>
+    <textarea  id="choice2" cols="30" rows="5"></textarea><br>
+    <button id="contrast">contrast</button><br>
+    <div id="result1" style="font-size: 36px"></div>
+    <hr>
+    <div id="result2" style="font-size: 36px"></div>
+</body>
+</html>

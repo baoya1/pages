@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- <meta charset="UTF-8"> -->
+	<meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<title>honesty</title>
+	
+<script type="text/javascript">
+	var profile = new Array()
+	var count = 1
+	var num = 0
+	var host = true
+
+	window.onload = function () {
+		var who = document.getElementById('who')
+		var send = document.getElementById('send')
+		var main = document.getElementById('main')
+		var img = document.getElementById('img')
+		var input = document.getElementById('input')
+		var playerList = document.getElementsByName('playerList')
+		var players = document.getElementById('players')
+
+			//点击头像 
+			who.onclick = function () {
+				num++
+				if (num > count) 
+					num = 0
+				img.src = profile[num]
+				host = (num == 0 ? true : false)
+			}
+
+			//点击send
+			send.onclick = function () {
+				if (input.value != "") {
+					if (host) 
+						main.innerHTML += '<div class="right"><img src="' + profile[0] + '"><p>' + input.value + '</p></div>'
+					else 
+						main.innerHTML += '<div class="left"><img src="' + profile[num] + '"><p>' + input.value + '</p></div>'
+					input.value = ""
+				}
+				//滚动条滚动到最底部
+				main.scrollTop = main.scrollHeight;
+			}
+		}
+
+		//以下函数需要置于外面 故将变量提为全局变量
+		//上传头像
+		function upload(obj, i) {
+			//获取到input的value，即文件路径  
+			var filePath = this.value
+			//转成可以在本地预览的格式  
+			var src = window.URL.createObjectURL(obj.files[0])
+			//添加到头像数组
+			profile[i] = src
+			img.src = src
+			num = i
+			host = (i == 0 ? true : false)
+		}
+
+		//添加player
+		function add() {
+			count++
+			players.innerHTML += '<div><span>player' + count + ':</span> <input type="file" onchange="upload(this,' + count + ');" /></div>'
+		}
+
+
+	</script>
+</head>
+
+<body>
+	<div class="chat">
+		<div id="main">
+			<div id="down"></div>
+		</div>
+		<div class="bottom">
+			<div id="who">
+				<img id="img">
+			</div>
+			<input id="input" type="text">
+			<div id="send">
+				<a href="#down">send</a>
+			</div>
+		</div>
+	</div>
+	<div id="players">
+		<button onclick="add();">增加player</button>
+		<br>
+		<div>
+			<span>host: &nbsp&nbsp&nbsp&nbsp</span>
+			<input type="file" onchange="upload(this,0);" />
+		</div>
+		<div>
+			<span>player1: </span>
+			<input type="file" onchange="upload(this,1);" />
+		</div>
+	</div>
+
+</body>
+
+</html>
+
+<style>
+	* {
+		margin: 0;
+		padding: 0;
+	}
+
+	body {
+		margin: 20px;
+	}
+
+	.chat {
+		width: 300px;
+		height: 450px;
+		background-color: #EBEBEB;
+		position: relative;
+	}
+
+	.bottom {
+		width: 204px;
+		height: 30px;
+		border: 1px solid #c0c0c0;
+		position: absolute;
+		left: 45px;
+		top: 408px;
+	}
+
+	#who {
+		width: 30px;
+		height: 28px;
+		border: 1px solid #c0c0c0;
+		border-radius: 7px;
+		float: left;
+
+	}
+
+	#who img {
+		width: 100%;
+		height: 100%;
+	}
+
+	#input {
+		width: 120px;
+		height: 28px;
+		border: 1px solid #c0c0c0;
+		border-radius: 8px;
+		float: left;
+		margin-left: 3px;
+		background-color: transparent;
+		outline: medium;
+		padding-left: 5px;
+	}
+
+	#send {
+		width: 35px;
+		height: 28px;
+		border: 1px solid #c0c0c0;
+		float: left;
+		margin-left: 5px;
+		font-size: 14px;
+		font-weight: bolder;
+		line-height: 30px;
+	}
+
+	.left img,
+	.right img {
+		width: 36px;
+		height: 36px;
+		margin-top: 1px;
+	}
+
+	.right,
+	.left {
+		margin: 10px 0;
+		overflow: hidden;
+		clear: both;
+		word-break: break-all;
+	}
+
+	.right p,
+	.right img {
+		float: right;
+	}
+
+	.left p,
+	.left img {
+		float: left;
+	}
+
+	p {
+		position: relative;
+		border-radius: 5px;
+		line-height: 15px;
+		margin-left: 10px;
+		word-break: break-word;
+		color: black;
+		padding: 11px 10px 11px 10px;
+		max-width: 145px;	
+		min-width: 35px;	
+		font-family: "黑体";
+	}
+
+	p::after {
+		content: "";
+		display: block;
+		position: absolute;
+		width: 0;
+		height: 0;
+		border: 8px solid transparent;
+		top: 11px;
+	}
+
+	.right p::after {
+		border-left-color: #9FE658;
+		right: -13px;
+	}
+
+	.right p {
+		background: #9FE658;
+		margin-right: 10px;
+	}
+
+	.left p::after {
+		border-right-color: #ffffff;
+		left: -13px;
+	}
+
+	.left p {
+		background: #ffffff;
+	}
+
+	#main {
+		width: 260px;
+		height: 320px;
+		position: absolute;
+		top: 45px;
+		left: 20px;
+		overflow: auto;
+	}
+
+	#down {
+		width: 0;
+		height: 0;
+		position: fixed;
+		top: 400px;
+	}
+
+	#send a {
+		text-decoration: none;
+		color: black;
+	}
+</style>

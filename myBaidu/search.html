@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>百度一下，你就知道</title>
+	<style>
+		*{
+			font-family: arial; /*注意字体*/
+			margin: 0;
+			padding: 0;
+		}
+
+		div{
+			width: 100%; /*表示宽度为整个页面*/
+			height: auto; /*表示div高度自适应*/
+			text-align: center; /*设置水平居中，也可用margin-left强行定位*/
+		}
+
+		li{
+			list-style: none;
+			display: inline; /*把li设置成内联元素，使其水平显示，也可设置float:left*/
+		}
+
+		a{
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+		.top,.bottom,.info{
+			overflow:hidden; /*清除浮动的一种方法*/
+		}
+
+		.top ul{
+			width: 470px;/*定宽度*/
+			float: right;
+			margin-right: 10px;
+		}
+
+		.top li{
+			font-size: 13px;
+			margin-left: 20px;
+		}
+
+		.li1{
+			font-weight: bold;
+		}
+
+		.top a{
+			text-decoration: underline;
+			color: #333;
+		}
+
+		.top a:hover{
+			color: blue;
+		}
+
+		.logo img{
+			width: 279px;
+			height: 129px;
+		}
+
+		.frame{
+			width: 540px;
+			height: 31px;
+		}
+
+		.button{
+			width: 100px;
+			height: 36px;
+			background: #3385ff;
+			color: white;
+			border:0;
+			border-bottom: 1px solid #2d78f4; /*这样写可以缩减代码行数*/
+			font-size: 15px;
+			margin-left: -5px; /*也可以用负值定位*/
+		}
+
+		.bottom a{
+			font-size: 12px;
+			margin-left: 10px;
+			color: #00c;
+			text-decoration: underline;
+		}
+
+		.bottom a:active{
+			color: orange;
+		}
+
+		.info{
+			font-size: 12px;
+			color: #666;
+			margin-top: 10px;
+		}
+
+		.info a{
+			text-decoration: underline;
+		}
+
+		.logo{
+			margin-top: 30px;
+		}
+
+		.top{
+			margin-top: 20px;
+		}
+
+		.search{
+			margin-top: 20px;
+		}
+
+		.bottom{
+			margin-top: 300px;
+		}
+
+		#li3{
+			background-color:#3385ff;
+			width: 60px;
+			height: 25px;
+			display: inline-block;
+			line-height: 25px;
+		}
+		#li3 a{
+			color: white;
+			text-decoration: none;
+		}
+
+		#li3 a:hover{
+			color: white;
+		}
+		.tip{
+			width: 542px;
+			height: 220px;
+			margin-left:361px; 
+			border: 1px solid black;
+			text-align:left;
+			float:left;
+			display:none;
+			border-top:0;
+		}    
+
+	</style>
+	<script type="text/javascript">
+		//处理得到的数据
+		function getData(data){
+			var oul=document.getElementById('searchList')
+			var html=''
+			if(data.s.length){
+				oul.style.display='block'
+				for(var i=0;i<data.s.length;i++){
+					html+='<li>'+data.s[i]+'</li><br>'
+				}
+				oul.innerHTML=html
+			}else{
+				oul.style.display='none'
+			}
+		}
+		//页面加载完成动态访问百度的地址
+		window.onload=function(){
+			var oq=document.getElementById('searchBox')
+			var oul=document.getElementById('searchList')
+			oq.onkeyup=function(){
+				if(this.value!=''){
+					var oScript=document.createElement('script')
+					//baidu API回调函数是cb
+					oScript.src='http://suggestion.baidu.com/su?wd='+this.value+'&cb=getData'
+					document.body.appendChild(oScript)
+				}else{
+					oul.style.display='none'
+				}
+			}
+		}
+	
+	</script>
+</head>
+<body>
+	<div class="top">
+		<ul>
+			<li class="li1"><a href="#">新闻</a></li>
+			<li class="li1"><a href="#">hao123</a></li>
+			<li class="li1"><a href="#">地图</a></li>
+			<li class="li1"><a href="#">视频</a></li>
+			<li class="li1"><a href="#">贴吧</a></li>
+			<li class="li2"><a href="#">登录</a></li>
+			<li class="li2"><a href="#">设置</a></li>
+			<li class="li2" id="li3"><a href="#">更多产品</a></li>
+			
+		</ul>
+	</div> 
+	<div class="logo">
+		<img src="./logo.png">
+	</div>
+	<form action="https://www.baidu.com/s" method="get" >
+		<div class="search">
+			<input type="text" name="wd" class="frame" id="searchBox">
+			<input type="submit" value="百度一下" class="button">
+			<div id="searchList" class="tip"></div>
+		</div>
+	</form>	
+	<div class="bottom">
+		<ul>
+			<li><a>把百度设为主页</a></li>
+			<li><a>关于百度</a></li>
+			<li><a>About Baidu</a></li>
+		</ul>
+	</div>
+	<div class="info">
+		<ul>
+			<li>©2015 Baidu</li>
+			<li><a>使用百度前必读</a></li>
+			<li><a>意见反馈</a></li>
+			<li>京ICP证030173号</li>
+		</ul>
+	</div>
+</body>
+</html>
