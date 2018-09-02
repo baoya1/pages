@@ -1,4 +1,4 @@
 # pages
-JavaScript
 created for fun
-test pull
+
+about JavaScript
