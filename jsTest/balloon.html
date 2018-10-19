@@ -3,7 +3,18 @@
 <head>
 	<meta charset="UTF-8">
 	<title>balloon</title>
-	<script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.js"></script>
+	<script type="text/javascript">
+		if(!window.jQuery) document.write('<script type="text/javascript" src="jquery-1.11.3.min.js"><'+'/script>')
+
+		$(function(){
+			$('#bu1').click(function(){
+				alert(12)
+			})
+		})
+
+
+	</script>
 	<script type="text/javascript"> 
 		var a_idx = 0; 
 		jQuery(document).ready(function($) { 
@@ -11,7 +22,7 @@
 				var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正" ,"法治", "爱国", "敬业", "诚信", "友善"); 
 				var $i = $("<span/>").text(a[a_idx]); a_idx = (a_idx + 1) % a.length; 
 				var x = e.pageX, y = e.pageY; 
-				$i.css({ "z-index": 999999999999999999999999999999999999999999999999999999999999999999999, "top": y - 20, "left": x, "position": "absolute", "font-weight": "bold", "color": "#ff6651" }); 
+				$i.css({ "z-index": 999999999999999999999999999999999999999999999999999999999999999999999, "top": y - 20, "left": x, "position": "absolute", "font-weight": "bold", "color": "yellow" }); 
 				$("body").append($i); 
 				$i.animate({ "top": y - 180, "opacity": 0 }, 1500, function() { 
 					$i.remove(); 
@@ -21,6 +32,6 @@
 	</script>
 </head>
 <body>
-	<div style="width:500px; height:500px; background-color:yellow;">click test</div>
+	<div style="width:500px; height:500px; background-color:red;">click test</div>
 </body>
 </html>
